@@ -1,0 +1,61 @@
+- piece.sheets.each do |sheet|
+  %div{'data-role' => 'page', 'id' => "#{sheet.id}"}  
+    = haml :'partials/navbar'
+    %div{'data-role' => 'header', 'data-theme' => 'c'}
+      %h6= "#{piece.name} - #{sheet.count}"
+      %a{href: '#prev', 
+        class: 'ui-btn-left',
+        'data-icon' => 'arrow-l'} Prev
+      %a{href: '#next', 
+        class: 'ui-btn-rigt', 
+        'data-icon' => 'arrow-r'} Next
+    %div{'data-role' => 'content'}
+      %img.sheet{src:sheet.uri, width: '100%'}
+    %div{'data-role' => 'footer'}
+      %div{'data-role' => 'controlgroup', 'data-type' => 'horizontal'}
+        %a{href: '#prev', 
+          'data-role' => 'button',
+          'data-icon' => 'arrow-l'} Prev
+        %a{href: '#next', 
+          'data-role' => 'button',
+          'data-icon' => 'arrow-r'} Next
+      %h6 #{piece.sheets.count} Sheets
+
+      
+:javascript
+  function nextPage(current_page) {   
+    var next_page     = current_page.next();
+    if (next_page.attr('data-role') == 'page') {    
+      jQuery.mobile.changePage(next_page,{transition: 'none'});
+    };
+  };
+  
+  function prevPage(current_page) {   
+    var prev_page     = current_page.prev();
+    if (prev_page.attr('data-role') == 'page') { 
+      jQuery.mobile.changePage(prev_page,{transition: 'none', reverse: true});
+    }
+  };
+  
+  jQuery(document).ready(function() {
+
+    jQuery("[href='#next']").live('click', function(event){
+      var current_page  = jQuery('.ui-page-active');
+      nextPage(current_page);
+    });
+  
+    jQuery("[href='#prev']").live('click', function(event){
+      var current_page  = jQuery('.ui-page-active');
+      prevPage(current_page);
+    });
+    
+    jQuery("[data-role='page'] img").live('swipeleft', function(event){
+      var current_page  = jQuery(event.currentTarget).parent().parent();
+      nextPage(current_page);
+    });
+    
+    jQuery("[data-role='page'] img").live('swiperight', function(event){
+      var current_page  = jQuery(event.currentTarget).parent().parent();  
+      prevPage(current_page);
+    });
+  });

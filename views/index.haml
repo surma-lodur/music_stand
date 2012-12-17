@@ -1,0 +1,14 @@
+%div{'data-role' => 'page'}
+  %div{'data-role' => 'header'}
+    %h1 MusicStand v#{MusicStand::Version}
+  %div{'data-role' => 'content'}
+    %div
+      %p Drop sheets into /sheets 
+     
+    %ul{'data-role' => 'listview'}
+      - MusicStand::SheetDir.all.each do |music_piece|
+        %li
+          %a{href: music_piece.link}= music_piece.name
+  %div{'data-role' => 'footer'}
+    %h4 Composers
+
