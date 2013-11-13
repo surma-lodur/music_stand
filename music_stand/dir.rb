@@ -3,7 +3,8 @@ require 'cgi'
 
 # Internal:   
 class MusicStand::Dir
-  BasePath = File.expand_path('../../sheets', __FILE__)
+  BaseFolder = 'sheets'
+  BasePath   = File.join(MusicStand::RuntimeRoot, BaseFolder)
 
   attr_accessor :path
 

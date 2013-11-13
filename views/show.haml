@@ -39,22 +39,22 @@
   
   jQuery(document).ready(function() {
 
-    jQuery("[href='#next']").live('click', function(event){
+    jQuery(document).on('click', "[href='#next']", function(event){
       var current_page  = jQuery('.ui-page-active');
       nextPage(current_page);
     });
   
-    jQuery("[href='#prev']").live('click', function(event){
+    jQuery(document).on('click', "[href='#prev']", function(event){
       var current_page  = jQuery('.ui-page-active');
       prevPage(current_page);
     });
     
-    jQuery("[data-role='page'] img").live('swipeleft', function(event){
+    jQuery(document).on('swipeleft', "[data-role='page'] img", function(event){
       var current_page  = jQuery(event.currentTarget).parent().parent();
       nextPage(current_page);
     });
     
-    jQuery("[data-role='page'] img").live('swiperight', function(event){
+    jQuery(document).on('swiperight', "[data-role='page'] img", function(event){
       var current_page  = jQuery(event.currentTarget).parent().parent();  
       prevPage(current_page);
     });
